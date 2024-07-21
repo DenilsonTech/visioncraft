@@ -1,9 +1,22 @@
-import React from 'react'
+import { ThemeProvider } from "../provider";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <main className='auth'>{children}</main>
-  )
+    <html lang="en">
+      <body>
+      <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+        {children}
+        </ThemeProvider>
+        </body>
+    </html>
+  );
 }
-
-export default Layout

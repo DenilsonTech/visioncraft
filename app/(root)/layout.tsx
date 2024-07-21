@@ -1,20 +1,34 @@
-import MobileNav from '@/components/shared/MobileNav'
-import Sidebar from '@/components/shared/Sidebar'
-import React from 'react'
+import { ClerkProvider } from "@clerk/nextjs";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "../provider";
 
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Career Resumes",
+  description: "MOdern Ai Resume Builder ",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <main className='root'>
-      <Sidebar/>
-      <MobileNav/>
-        <div className='root-container'>
-            <div className='wrapper'>
-                {children}
-            </div>
-        </div>
-    </main>
-  )
+    <html lang="en">
+      <body className={inter.className}>
+      <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+        {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }
-
-export default Layout

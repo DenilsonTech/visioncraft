@@ -4,7 +4,7 @@ import { type ClassValue, clsx } from "clsx";
 import qs from  "qs";
 import { twMerge } from "tailwind-merge";
 
-import { aspectRatioOptions } from "@/constants";
+import { FormUrlQueryParams, RemoveUrlQueryParams } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -67,10 +67,10 @@ export const formUrlQuery = ({
 
 // REMOVE KEY FROM QUERY
 export function removeKeysFromQuery({
-  searchParams,
+  params,
   keysToRemove,
 }: RemoveUrlQueryParams) {
-  const currentUrl = qs.parse(searchParams);
+  const currentUrl = qs.parse(params);
 
   keysToRemove.forEach((key) => {
     delete currentUrl[key];
@@ -94,20 +94,6 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
 };
 
 // GE IMAGE SIZE
-export type AspectRatioKey = keyof typeof aspectRatioOptions;
-export const getImageSize = (
-  type: string,
-  image: any,
-  dimension: "width" | "height"
-): number => {
-  if (type === "fill") {
-    return (
-      aspectRatioOptions[image.aspectRatio as AspectRatioKey]?.[dimension] ||
-      1000
-    );
-  }
-  return image?.[dimension] || 1000;
-};
 
 // DOWNLOAD IMAGE
 export const download = (url: string, filename: string) => {
